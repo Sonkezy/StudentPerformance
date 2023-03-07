@@ -1,0 +1,161 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:StudentPerformance.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:Example"
+		xmlns:converter="clr-namespace:StudentPerformance.ViewModels"
+		mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
+		Width="900" Height="600"
+        x:Class="StudentPerformance.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="StudentPerformance">
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+	<Window.Resources>
+		<converter:MarkToColorBrushConverter x:Key="markToColorBrushConverter"/>
+		<converter:IsIndexOverZeroConverter x:Key="isIndexOverZeroConverter"/>
+	</Window.Resources>
+
+	<!---->
+	<ScrollViewer>
+		<Grid RowDefinitions="0.1*, 0.5*, 0.1*, 0.1*, 0.1*, 0.1*" >
+			<Grid.Styles>
+				<StyleInclude Source="/Assets/CustomStyles.axaml"/>
+			</Grid.Styles>
+			<Grid Grid.Row="0" ColumnDefinitions="3*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*" >
+				<TextBlock Classes="header" Text="ФИО" Grid.Column="0"/>
+				<Border BorderBrush="Black" BorderThickness="1" Grid.Column="0"/>
+				<TextBlock Classes="header" Text="ЭЭС" Grid.Column="1"/>
+				<Border BorderBrush="Black" BorderThickness="1" Grid.Column="1"/>
+				<TextBlock Classes="header" Text="Сети ЭВМ" Grid.Column="2"/>
+				<Border BorderBrush="Black" BorderThickness="1" Grid.Column="2"/>
+				<TextBlock Classes="header" Text="АЭВМ" Grid.Column="3"/>
+				<Border BorderBrush="Black" BorderThickness="1" Grid.Column="3"/>
+				<TextBlock Classes="header" Text="ТВиМС" Grid.Column="4"/>
+				<Border BorderBrush="Black" BorderThickness="1" Grid.Column="4"/>
+				<TextBlock Classes="header" Text="СГМА" Grid.Column="5"/>
+				<Border BorderBrush="Black" BorderThickness="1" Grid.Column="5"/>
+				<TextBlock Classes="header" Text="Выч. мат." Grid.Column="6"/>
+				<Border BorderBrush="Black" BorderThickness="1" Grid.Column="6"/>
+				<TextBlock Classes="header" Text="Физ-ра" Grid.Column="7"/>
+				<Border BorderBrush="Black" BorderThickness="1" Grid.Column="7"/>
+				<TextBlock Classes="header" Text="ВПиЧМВ" Grid.Column="8"/>
+				<Border BorderBrush="Black" BorderThickness="1" Grid.Column="8"/>
+				<TextBlock Classes="header" Text="Ср. балл" Grid.Column="9"/>
+				<Border BorderBrush="Black" BorderThickness="1" Grid.Column="9"/>
+			</Grid>
+			<Border BorderBrush="Black" BorderThickness="2" Grid.Row="0"/>
+			<ListBox Grid.Row="1" Items="{Binding Students}" SelectedIndex="{Binding Index}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Margin="-12">
+							<Grid ColumnDefinitions="3*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*">
+								<TextBlock Grid.Column="0" Text="{Binding Name}"/>
+								<Border Grid.Column="0"/>
+								<TextBlock Name="ElecMark" Grid.Column="1" Text="{Binding Elec}" />
+								<Border Name="ElecColor" Grid.Column="1" Background="{Binding Elec, Converter={StaticResource markToColorBrushConverter}}"/>
+								<TextBlock Grid.Column="2" Text="{Binding Comp_Net}"/>
+								<Border Grid.Column="2" Background="{Binding Comp_Net, Converter={StaticResource markToColorBrushConverter}}"/>
+								<TextBlock Grid.Column="3" Text="{Binding Comp_Arch}"/>
+								<Border Grid.Column="3" Background="{Binding Comp_Arch, Converter={StaticResource markToColorBrushConverter}}"/>
+								<TextBlock Grid.Column="4" Text="{Binding Prob_Theory}"/>
+								<Border Grid.Column="4" Background="{Binding Prob_Theory, Converter={StaticResource markToColorBrushConverter}}"/>
+								<TextBlock Grid.Column="5" Text="{Binding Calculus}"/>
+								<Border Grid.Column="5" Background="{Binding Calculus, Converter={StaticResource markToColorBrushConverter}}"/>
+								<TextBlock Grid.Column="6" Text="{Binding Comp_Math}"/>
+								<Border Grid.Column="6" Background="{Binding Comp_Math, Converter={StaticResource markToColorBrushConverter}}"/>
+								<TextBlock Grid.Column="7" Text="{Binding PI}"/>
+								<Border Grid.Column="7" Background="{Binding PI, Converter={StaticResource markToColorBrushConverter}}"/>
+								<TextBlock Grid.Column="8" Text="{Binding Vis_Prog}"/>
+								<Border Grid.Column="8" Background="{Binding Vis_Prog, Converter={StaticResource markToColorBrushConverter}}"/>
+								<TextBlock Name="AverMark" Grid.Column="9" Text="{Binding Average}"/>
+								<Border Name="AverColor" Grid.Column="9" Background="{Binding Average, Converter={StaticResource markToColorBrushConverter}}"/>
+
+							</Grid>
+						</StackPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+			<Grid Grid.Row="2" ColumnDefinitions="3*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*">
+				<TextBlock  Grid.Column="0" Text="Ср. Баллы"/>
+				<Border Grid.Column="0"/>
+				<TextBlock Grid.Column="1" Text="{Binding AvElec}" />
+				<Border Grid.Column="1" Background="{Binding AvElec, Converter={StaticResource markToColorBrushConverter}}"/>
+				<TextBlock Grid.Column="2" Text="{Binding AvCompNet}"/>
+				<Border Grid.Column="2" Background="{Binding AvCompNet, Converter={StaticResource markToColorBrushConverter}}"/>
+				<TextBlock Grid.Column="3" Text="{Binding AvCompArch}"/>
+				<Border Grid.Column="3" Background="{Binding AvCompArch, Converter={StaticResource markToColorBrushConverter}}"/>
+				<TextBlock Grid.Column="4" Text="{Binding AvProbTheory}"/>
+				<Border Grid.Column="4" Background="{Binding AvProbTheory, Converter={StaticResource markToColorBrushConverter}}"/>
+				<TextBlock Grid.Column="5" Text="{Binding AvCalculus}"/>
+				<Border Grid.Column="5" Background="{Binding AvCalculus, Converter={StaticResource markToColorBrushConverter}}"/>
+				<TextBlock Grid.Column="6" Text="{Binding AvCompMath}"/>
+				<Border Grid.Column="6" Background="{Binding AvCompMath, Converter={StaticResource markToColorBrushConverter}}"/>
+				<TextBlock Grid.Column="7" Text="{Binding AvPI}"/>
+				<Border Grid.Column="7" Background="{Binding AvPI, Converter={StaticResource markToColorBrushConverter}}"/>
+				<TextBlock Grid.Column="8" Text="{Binding AvVisProg}"/>
+				<Border Grid.Column="8" Background="{Binding AvVisProg, Converter={StaticResource markToColorBrushConverter}}"/>
+				<TextBlock Grid.Column="9" Text="{Binding AvAverage}"/>
+				<Border Grid.Column="9" Background="{Binding AvAverage, Converter={StaticResource markToColorBrushConverter}}"/>
+			</Grid>
+			<Grid Grid.Row="3" ColumnDefinitions="3*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*">
+				<TextBox Grid.Column="0" Text="{Binding Name}"/>
+				<ComboBox Grid.Column="1" SelectedIndex="{Binding Elec}">
+					<TextBlock Text="0"/>
+					<TextBlock Text="1"/>
+					<TextBlock Text="2"/>
+				</ComboBox>
+				<ComboBox Grid.Column="2" SelectedIndex="{Binding CompNet}">
+					<TextBlock Text="0"/>
+					<TextBlock Text="1"/>
+					<TextBlock Text="2"/>
+				</ComboBox>
+				<ComboBox Grid.Column="3" SelectedIndex="{Binding CompArch}">
+					<TextBlock Text="0"/>
+					<TextBlock Text="1"/>
+					<TextBlock Text="2"/>
+				</ComboBox>
+				<ComboBox Grid.Column="4" SelectedIndex="{Binding ProbTheory}">
+					<TextBlock Text="0"/>
+					<TextBlock Text="1"/>
+					<TextBlock Text="2"/>
+				</ComboBox>
+				<ComboBox Grid.Column="5" SelectedIndex="{Binding Calculus}">
+					<TextBlock Text="0"/>
+					<TextBlock Text="1"/>
+					<TextBlock Text="2"/>
+				</ComboBox>
+				<ComboBox Grid.Column="6" SelectedIndex="{Binding CompMath}">
+					<TextBlock Text="0"/>
+					<TextBlock Text="1"/>
+					<TextBlock Text="2"/>
+				</ComboBox>
+				<ComboBox Grid.Column="7" SelectedIndex="{Binding PI}">
+					<TextBlock Text="0"/>
+					<TextBlock Text="1"/>
+					<TextBlock Text="2"/>
+				</ComboBox>
+				<ComboBox Grid.Column="8" SelectedIndex="{Binding VisProg}">
+					<TextBlock Text="0"/>
+					<TextBlock Text="1"/>
+					<TextBlock Text="2"/>
+				</ComboBox>
+			</Grid>
+			<Grid Grid.Row="4" ColumnDefinitions="0.5*, 0.5*">
+				<Button Grid.Column="0" Name="buttonAdd" Content="Добавить" Command="{Binding AddStudent}" IsEnabled="{Binding Name, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+				<Button Grid.Column="1" Name="buttonDel" Content="Удалить" Command="{Binding DelStudent}" IsEnabled="{Binding Index, Converter={StaticResource isIndexOverZeroConverter}}"/>
+			</Grid>
+			<Grid Grid.Row="5" ColumnDefinitions="0.5*, 0.5*">
+				<Button Grid.Column="0" Name="buttonSave" Content="Сохранить" Command="{Binding Save}"/>
+				<Button Grid.Column="1" Name="buttonLoad" Content="Загрузить" Command="{Binding Load}"/>
+				<!--<TextBlock Grid.Column="1" Text="{Binding Index}"/>-->
+			</Grid>
+		</Grid>
+	</ScrollViewer>
+	<!---->
+
+
+</Window>
